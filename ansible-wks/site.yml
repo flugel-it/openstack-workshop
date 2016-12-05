@@ -1,0 +1,23 @@
+
+- name: OpenStack Workshop Workstation
+  hosts:
+    - localhost
+  tasks:
+    - name: Install packages
+      apt: name={{ item }}
+      with_items:
+        - python-openstackclient
+        - vim
+        - screen
+        - unzip
+    - name: Install Terraform
+      unarchive:
+        src: "https://releases.hashicorp.com/terraform/0.7.13/terraform_0.7.13_linux_amd64.zip"
+        dest: /usr/local/bin
+        creates: /usr/local/bin/terraform
+        remote_src: yes
+    - name: Use vim
+      alternatives:
+        name: vi
+        path: /usr/bin/vim
+
